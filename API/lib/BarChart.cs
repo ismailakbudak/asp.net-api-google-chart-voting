@@ -1,5 +1,6 @@
 ﻿using API.controllers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,8 @@ namespace API.lib
         // Fields
         private string data = "";
         private string cols = "";
-        private string rows = ""; 
+        private string rows = "";
+        private string roles = ""; 
         private string javascript;
 
         // Properties
@@ -24,8 +26,7 @@ namespace API.lib
         public string hAxisTitle { get; set; }
 
         public string vAxisTitle { get; set; }
-
-        public string color { get; set; }
+         
           
         public string title { get; set; }
 
@@ -47,21 +48,43 @@ namespace API.lib
             TableChart
         }
         // Color types
-        public enum ColorType { 
+        public Hashtable colors = new Hashtable();
+         
+        /*
+        { 
             black,
             blue, 
             red, 
             green, 
             yellow, 
-            gray
-        }
-
+            gray,
+            orange,
+            azure
+        };
+        */
         // Methods
         public BarChart()
         {
             this.title = "Google Chart"; 
             this.elementId = "chart_div";
-            this.color = "#e2431e";
+            colors.Add(0, "#5F04B4");
+            colors.Add(1, "blue");
+            colors.Add(2, "red");
+            colors.Add(3, "green");
+            colors.Add(4, "yellow");
+            colors.Add(5, "orange");
+            colors.Add(6, "#8000FF");
+            colors.Add(7, "##58FA82");
+            colors.Add(8, "#FE9A2E");
+            colors.Add(9, "#D358F7");
+            colors.Add(10, "#2EFEF7");
+            colors.Add(11, "#80FF00");
+            colors.Add(12, "#DF01D7");
+            colors.Add(13, "#FE2E64");
+            colors.Add(14, "#2EFE9A");
+            colors.Add(15, "gold");
+            colors.Add(16, "gray");
+
         }
 
         public void addColumn(string type, string columnName)
@@ -70,6 +93,14 @@ namespace API.lib
             this.data = data + "data.addColumn('" + type + "', '" + columnName + "');";
             this.cols = this.cols + " {'type': '" + type + "', 'val': '" + columnName + "'}, "; 
         }
+        
+        public void addColumnType(string type,  string columnName)
+        {
+            string data = this.data;
+            this.data = data + "data.addColumn({ type: '" + type + "', role: '" + columnName + "'});"; 
+            this.roles = this.roles + " {'type': '" + type + "', 'role': '" + columnName + "'}, ";
+        }
+
 
         /*
          var json = { 
@@ -82,13 +113,14 @@ namespace API.lib
             this.data = this.data + "data.addRow([" + value + "]);";  
         }
 
-        public void addRowJson(string name, string value)
+        public void addRowJson(string name, string value, string color)
         { 
-            this.rows = this.rows + "{ 'name': '" + name + "', 'val' : " + value+"},";
+            this.rows = this.rows + "{ 'name': '" + name + "', 'val' : " + value+", 'color' : '" +color+ "' },";
         }
 
         public string JSon() { 
             return   "{ 'cols': [ "+ this.cols +" ]," +
+                      " 'roles': [ "+ this.roles +" ]," +
                      "  'rows': [ "+ this.rows +" ] " +
                      "}".Replace("'", "\"");
         }
@@ -104,8 +136,7 @@ namespace API.lib
             this.javascript = this.javascript + "data = new google.visualization.DataTable();";
             this.javascript = this.javascript + this.data;
             this.javascript = this.javascript + "options = {";
-            this.javascript = this.javascript + "'title': '" + this.title + "',";
-            this.javascript = this.javascript + "'colors': ['" + this.color + "'],";
+            this.javascript = this.javascript + "'title': '" + this.title + "',"; 
             this.javascript = this.javascript + "vAxis: {title: '" + this.vAxisTitle + "' },";
             this.javascript = this.javascript + "hAxis: {title: '" + this.hAxisTitle + "' },"; 
             
@@ -115,7 +146,7 @@ namespace API.lib
             string str = this.javascript;
             this.javascript = str + "chart = new google.visualization." + chart.ToString() + "(document.getElementById('" + this.elementId + "'));";
             this.javascript = this.javascript + "view = new google.visualization.DataView(data);                                              ";
-            this.javascript = this.javascript + "view.setColumns([0, 1, { sourceColumn: 1, role: 'annotation' }]);                            "; 
+            this.javascript = this.javascript + "view.setColumns([0, 1, { sourceColumn: 1, role: 'annotation' },{ sourceColumn: 2, role: 'style' }]);                            "; 
             this.javascript = this.javascript + "chart = new google.visualization.BarChart(document.getElementById('" + this.elementId + "'));";
             this.javascript = this.javascript + "chart.draw(view, options);	                                                                  ";
             this.javascript = this.javascript + "};"+
@@ -128,20 +159,24 @@ namespace API.lib
                 "    data = getData();                               "+
                 "    chart.draw(data, options);                      "+
                 "};                                                  "+
-                " function setChart(json){                           "+ 
+                " function setChart(json){ console.dir(json);                          "+ 
 	            "    data = new google.visualization.DataTable();    "+
                 "    var json =  json;   for(var i=0; i<  json.cols.length; i++   ){     " +
 			    "        var col =  json.cols[i];                    "+
 			    "        data.addColumn( col.type, col.val );        "+
 			    "    };                                              "+
+                "    for(var i=0; i<  json.roles.length; i++   ){     " +
+                "        var role =  json.roles[i];                    " +
+                "        data.addColumn({ type: role.type, role: role.role} );        " +
+			    "    };                                              "+
 			    "    var arr = [];                                   "+
                 "    for(var i=0; i<  json.rows.length; i++   ){     "+
 			    "        var col =  json.rows[i];                    "+
-			    "        arr.push([ col.name,  col.val  ]);          "+
+                "        arr.push([ col.name,  col.val, col.color  ]);          " +
 			    "    };                                              "+
 			    "    data.addRows(arr);                             "+ 
 			    "    view = new google.visualization.DataView(data);                                                 " +
-			    "    view.setColumns([0, 1, { sourceColumn: 1, role: 'annotation' }]);                               " + 
+                "    view.setColumns([0, 1, { sourceColumn: 1, role: 'annotation' }, { sourceColumn: 2, role: 'style' }]);" + 
 			    "    chart = new google.visualization.BarChart(document.getElementById('" + this.elementId + "'));   " +
 			    "    chart.draw(view, options);	                                                                     " +
                 "};                                                   "+
