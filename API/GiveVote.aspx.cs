@@ -25,19 +25,13 @@ namespace API
             chart.title = "Oylama Sonuçları"; 
             chart.addColumn("string", "Aday");
             chart.addColumn("number", "Oy Sayısı"); 
-            chart.addColumnType("string", "style");
-            int index = 0;
+             
             foreach (var item in result)
             {
                 var candidate = CandidatesController.candidates.Where(c => c.Id == item.candidate_id).FirstOrDefault();
                 if (candidate != null)
                 {
-                    chart.addRow("'" + candidate.Name + "'," + item.count + ", '" + chart.colors[index].ToString() + "'");
-                    index++;
-                }
-                if (index >= chart.colors.Count)
-                {
-                    index = 0;
+                    chart.addRow("'" + candidate.Name + "'," + item.count);
                 }
             } 
             ltScripts.Text = chart.generateChart(BarChart.ChartType.BarChart);

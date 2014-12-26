@@ -75,19 +75,13 @@ namespace API.controllers
 
             chart.addColumn("string", "Aday");
             chart.addColumn("number", "Oy Sayısı");
-            chart.addColumnType("string", "style");
 
-            int index = 0;
             foreach (var item in result)
             {
                 var candidate = CandidatesController.candidates.Where(c => c.Id == item.candidate_id).FirstOrDefault();
                 if (candidate != null)
                 {
-                    chart.addRowJson(candidate.Name, item.count.ToString(), chart.colors[index].ToString());
-                    index++;
-                }
-                if (index >= chart.colors.Count) {
-                    index = 0;
+                    chart.addRowJson(candidate.Name, item.count.ToString());
                 }
             } 		    
              
