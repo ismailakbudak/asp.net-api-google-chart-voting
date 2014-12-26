@@ -11,3 +11,17 @@ C:\Users\iso\SkyDrive\Aplication\WebAPI\API\bin\System.Web.Http.WebHost.xml
 C:\Users\iso\SkyDrive\Aplication\WebAPI\API\obj\Debug\API.csprojResolveAssemblyReference.cache
 C:\Users\iso\SkyDrive\Aplication\WebAPI\API\obj\Debug\API.dll
 C:\Users\iso\SkyDrive\Aplication\WebAPI\API\obj\Debug\API.pdb
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\obj\Debug\API.csprojResolveAssemblyReference.cache
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\obj\Debug\API.dll
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\API.dll
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\API.pdb
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\Newtonsoft.Json.dll
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\System.Net.Http.Formatting.dll
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\System.Web.Http.dll
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\System.Web.Http.WebHost.dll
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\Newtonsoft.Json.xml
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\System.Net.Http.Formatting.xml
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\System.Web.Http.xml
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\bin\System.Web.Http.WebHost.xml
+C:\Users\iso\SkyDrive\Aplication\WebAPI - Kopya (2)\API\obj\Debug\API.pdb
+C:\Users\iso\SkyDrive\Aplication\WebAPI\API\bin\API.dll.config

@@ -10,7 +10,7 @@
         .text-center {
          text-align:center;
         }
-        .vote {
+        .btn {
           margin:5px;
         }
         #chart_div:first-child {
@@ -43,19 +43,19 @@
         </div>
         <hr />
         <div class="row text-center">  
-            <a href="AddCandidate.aspx"  class="btn btn-success"  > Adaylar sayfası</a> 
+            <a href="AddCandidate.aspx"  class="btn btn-sm btn-success"  > Adaylar sayfası</a> 
         </div>
         <hr />
         <div class="row text-center">   
-            <button type="button" class="increaseWidth btn btn-info" >Genişliği arttır</button>
-            <button type="button" class="decreaseWidth btn btn-warning" >Genişliği azalt</button> 
-            <button type="button" class="increaseHeight btn btn-info" >Yükseklik arttır</button>
-            <button type="button" class="decreaseHeight btn btn-warning" >Yükseklik azalt</button> 
+            <button type="button" class="increaseWidth btn btn-sm btn-info" >Genişliği arttır</button>
+            <button type="button" class="decreaseWidth btn btn-sm btn-warning" >Genişliği azalt</button> 
+            <button type="button" class="increaseHeight btn btn-sm btn-info" >Yükseklik arttır</button>
+            <button type="button" class="decreaseHeight btn btn-sm btn-warning" >Yükseklik azalt</button> 
         </div>
         <hr />
         <div class="row text-center"> 
-            <button type="button" class="deleteAll btn btn-danger" data-id="1">Hepsini sil</button>
-            <button type="button" class="delete btn btn-danger" data-id="1">Son eklenen oyu sil</button> 
+            <button type="button" class="deleteAll btn btn-sm btn-danger" data-id="1">Hepsini sil</button>
+            <button type="button" class="delete btn btn-sm btn-danger" data-id="1">Son eklenen oyu sil</button> 
         </div>
         <br />
         <br />
@@ -72,7 +72,7 @@
             $.getJSON(uri)
                 .done(function (data) {
                     $.each(data, function (key, item) {
-                        var val = '<button type="button" class="vote btn btn-primary"  data-id="' + item.Id + '">' + item.Name + '</button>';
+                        var val = '<button type="button" class="vote btn btn-sm btn-primary"  data-id="' + item.Id + '">' + item.Name + '</button>';
                         $('#candidatesAjax').append(val);
                     });
                     $('.vote').click(function () {
